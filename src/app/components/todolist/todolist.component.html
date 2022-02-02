@@ -1,10 +1,17 @@
-<div>
-    <div *ngFor="let todo of (todos$ | async)">
-        {{todo.todoId}}
-        <br>
-        {{todo.title}} <button (click)="deleteTodo(todo.todoId)">X</button>
-        <br>
-        {{todo.desc}}
-        <hr/>
-    </div>
-</div>
+<mat-expansion-panel *ngFor="let todo of todos$ | async">
+  <mat-expansion-panel-header>
+    <mat-panel-title class="todo-title">
+      <div style="justify-content: center">
+        {{ todo.title }}
+      </div>
+      <div>
+        <button (click)="deleteTodo(todo.todoId)" mat-icon-button aria-label="delete">
+          <mat-icon class="delete-todo">delete</mat-icon>
+        </button>
+      </div>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div class="expanded-desc">
+  {{ todo.desc }}
+  </div>
+</mat-expansion-panel>
