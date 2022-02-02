@@ -1,14 +1,19 @@
-<form [formGroup] = "createTodo" (ngSubmit)="submitHandler()">
-  <label for="title">Title: </label>
-  <input id="title" type="text" formControlName="title" required>
-  <br>
-  <label for="desc">Description: </label>
-  <input id="desc" type="text" formControlName="desc" autocomplete="off">
-  <br>
-  <button type="submit">Submit</button>
+<form [formGroup]="createTodo" (ngSubmit)="submitHandler()" class="create-todo-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label for="title">Title</mat-label>
+    <input id="title" type="text" matInput [formControl]="title" placeholder="New Todo" required/>
+    <mat-error *ngIf="title.errors?.required">
+      Title is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="title.errors?.minlength">
+      Title needs to be <strong>at least 3 char</strong>
+    </mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label for="desc">Description</mat-label>
+    <textarea id="desc" matInput matInput formControlName="desc" placeholder="New Todo Desc"></textarea>
+  </mat-form-field>
+  <br />
+  <button mat-raised-button type="submit" color="primary" class="submit-todo">Submit</button>
 </form>
-<div *ngIf="(createTodo.status === 'INVALID' && !createTodo.pristine) || submitError">
-  Please Enter valid inputs.
-  <p *ngIf="title.errors?.required"> Title is required </p>
-  <p *ngIf="title.errors?.minlength"> Title needs to be at least 3 char. </p>
-</div>
